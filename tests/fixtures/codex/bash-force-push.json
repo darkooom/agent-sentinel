@@ -1,0 +1,1 @@
+{"session_id":"s-1","transcript_path":null,"cwd":"{{CWD}}","hook_event_name":"PreToolUse","model":"gpt-5-codex","permission_mode":"default","turn_id":"t-1","tool_name":"Bash","tool_use_id":"call_1","tool_input":{"command":"git push --force origin feature/login"}}

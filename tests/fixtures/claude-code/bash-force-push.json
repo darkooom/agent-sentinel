@@ -1,0 +1,1 @@
+{"session_id":"abc123","transcript_path":"/tmp/t.jsonl","cwd":"{{CWD}}","permission_mode":"default","hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"git push --force origin feature/login","description":"Push rebased branch"},"tool_use_id":"toolu_02"}

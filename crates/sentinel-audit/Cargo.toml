@@ -1,0 +1,22 @@
+[package]
+name = "sentinel-audit"
+description = "Audit log for agent-sentinel"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+sentinel-core.workspace = true
+sentinel-policy.workspace = true
+chrono.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

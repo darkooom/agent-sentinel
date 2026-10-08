@@ -1,0 +1,21 @@
+[package]
+name = "sentinel-core"
+description = "Action model, shell analysis and detectors for agent-sentinel"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+globset.workspace = true
+regex.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,48 @@
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.89"
+license = "Apache-2.0"
+repository = "https://github.com/darkooom/agent-sentinel"
+homepage = "https://github.com/darkooom/agent-sentinel"
+authors = ["agent-sentinel contributors"]
+
+[workspace.dependencies]
+sentinel-core = { path = "crates/sentinel-core", version = "0.1.0" }
+sentinel-policy = { path = "crates/sentinel-policy", version = "0.1.0" }
+sentinel-audit = { path = "crates/sentinel-audit", version = "0.1.0" }
+sentinel-runtime = { path = "crates/sentinel-runtime", version = "0.1.0" }
+
+anyhow = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std", "serde"] }
+clap = { version = "4.5", features = ["derive", "env", "wrap_help"] }
+crossterm = { version = "0.29", default-features = false, features = ["events"] }
+globset = { version = "0.4", default-features = false }
+libc = "0.2"
+regex = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+serde_yaml_ng = "0.10"
+sha2 = "0.10"
+thiserror = "2"
+unicode-width = "0.2"
+
+assert_cmd = "2"
+predicates = "3"
+tempfile = "3"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+
+[workspace.lints.clippy]
+dbg_macro = "warn"
+todo = "warn"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

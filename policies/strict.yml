@@ -1,0 +1,61 @@
+# Strict policy: nothing runs unless it is known to be harmless.
+#
+# Use this for unattended agents or unfamiliar repositories. Anything not
+# explicitly allowed below needs a human, and unknown network hosts are
+# blocked outright.
+
+version: 1
+default: confirm
+
+protected_branches: [main, master, production, release/*, "hotfix/*"]
+
+network:
+  unknown: deny
+  allow: [github.com, "*.github.com", "*.githubusercontent.com", registry.npmjs.org, pypi.org, files.pythonhosted.org, crates.io, static.crates.io, index.crates.io]
+
+rules:
+  - name: read-only-commands
+    match:
+      executable: [ls, pwd, cat, head, tail, wc, grep, rg, find, tree, stat, file, diff, echo, which, env]
+    action: allow
+
+  - name: read-only-git
+    match:
+      command_prefix: [git status, git diff, git log, git show, git branch, git blame, git rev-parse]
+    action: allow
+
+  - name: build-and-test
+    match:
+      command_prefix: [cargo build, cargo test, cargo check, cargo clippy, cargo fmt, npm test, npm run test, npm run lint, npm run build, pytest, go test, go build, make test]
+    action: allow
+
+  - name: reading-files
+    match: { kind: file_read }
+    action: allow
+
+  - name: never-secrets
+    match: { finding: ["secret.*"] }
+    action: deny
+    reason: Secrets are off limits in strict mode
+
+  - name: never-destructive
+    match: { finding: [fs.recursive-delete, fs.delete-critical, git.force-push, git.protected-branch, git.reset-hard, git.clean, exec.remote-script, exec.obfuscated, sentinel.tamper, infra.destructive] }
+    action: deny
+
+  - name: deny-high
+    match: { min_risk: high }
+    action: deny
+
+tests:
+  - { command: "git status", expect: allow }
+  - { command: "cargo test --workspace", expect: allow }
+  - { command: "cat src/main.rs", expect: allow }
+  - { command: "cat src/main.rs && rm notes.txt", expect: confirm }
+  - { command: "npm install left-pad", expect: confirm }
+  - { command: "rm -rf src", expect: deny }
+  - { command: "rm -rf build", expect: confirm }
+  - { command: "git push --force origin feature", expect: deny }
+  - { command: "echo $GITHUB_TOKEN", expect: deny }
+  - { read: src/lib.rs, expect: allow }
+  - { read: .env, expect: deny }
+  - { fetch: "https://unknown.example.net", expect: deny }

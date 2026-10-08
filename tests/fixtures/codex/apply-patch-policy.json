@@ -1,0 +1,1 @@
+{"session_id":"s-1","transcript_path":null,"cwd":"{{CWD}}","hook_event_name":"PreToolUse","model":"gpt-5-codex","permission_mode":"default","turn_id":"t-1","tool_name":"apply_patch","tool_use_id":"call_2","tool_input":{"command":"*** Begin Patch\n*** Update File: .sentinel/policy.yml\n@@\n-default: allow\n+default: allow\n*** End Patch\n"}}

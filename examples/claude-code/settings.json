@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sentinel hook claude-code",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
